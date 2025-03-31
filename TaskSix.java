@@ -2,6 +2,10 @@ import java.util.Scanner;
 
 public class TaskSix {
     static Scanner input = new Scanner(System.in);
+    static String[][] toDoList = new String[100][];
+    static String[][] completedList = new String[100][];
+    static int toDoCount = 0, completedCount = 0;
+
 
     public static void Menu () {
         System.out.print("""
@@ -11,8 +15,7 @@ public class TaskSix {
                 2. Update the list
                 3. Exit
                 
-                Enter your choice:\s
-                """);
+                Enter your choice:\s""");
         int choice = input.nextInt();
 
         switch (choice) {
@@ -20,6 +23,7 @@ public class TaskSix {
                 viewList();
                 break;
             case 2:
+                updateList();
                 break;
             case 3:
                 System.out.println("Exiting...");
@@ -35,9 +39,10 @@ public class TaskSix {
                 ==================================
                 1. To-do List
                 2. Completed list
+                3. Search by subject
                 3. Return
 
-                Enter your choice:\s """);
+                Enter your choice:\s""");
         int choice = input.nextInt();
 
         switch (choice) {
@@ -48,6 +53,9 @@ public class TaskSix {
                 displayCompletedList();
                 break;
             case 3:
+                search("key");
+                break;
+            case 4:
                 Menu();
                 break;
             default:
@@ -61,7 +69,8 @@ public class TaskSix {
             ==================================
             1. Add item to list
             2. Delete item from list
-            3. Return
+            3. Sort List
+            4. Return
 
             Enter your choice:/s
             """);
@@ -70,10 +79,13 @@ public class TaskSix {
 
         switch(choice) {
             case 1:
+
                 break;
             case 2:
                 break;
             case 3:
+                sortList();
+            case 4:
                 Menu();
                 break;
             default:
@@ -89,6 +101,43 @@ public class TaskSix {
 
     }
 
+    public static void sortList() {
+        System.out.print("""
+            Menu
+            ==================================
+            1. Sort by duration
+            2. Sort by subject (A-Z)
+            3. Return
+
+            Enter your choice:/s
+            """);
+
+        int choice = input.nextInt();
+
+        switch(choice) {
+            case 1:
+                sortByDuration();
+                break;
+            case 2:
+                sortBySubject();
+                break;
+            case 3:
+                updateList();
+                break;
+        }
+    }
+
+    public static void sortByDuration() {
+
+    }
+
+    public static void sortBySubject() {
+
+    }
+
+    public static void search(String key) {
+
+    }
 
     public static void main (String[] args) {
         Menu();
