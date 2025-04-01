@@ -139,7 +139,75 @@ public class TaskSix {
 
     }
 
-    public static void main (String[] args) {
-        Menu();
+    public static String[][] loadArray (String filename) {
+        List<String[]> list = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add(line.split(" "));
+            }
+        } catch (IOException e) {
+            System.out.println("Error occured: ");
+            e.printStackTrace();
+        }
+
+        return list.toArray(new String[0][]);
     }
-}
+
+    public static void main (String[] args) {
+            File toDoFile = new File ("toDoFile.txt");
+            File completedFile = new File("completedFile.txt");
+    
+            if (!toDoFile.exists()) {
+                try {
+                    toDoFile.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error occured: ");
+                    e.printStackTrace();
+                }
+            }
+    
+            if (!completedFile.exists()) {
+                try {
+                    completedFile.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error occured: ");
+                }
+            }
+    
+            if (toDoFile.length() != 0) {
+                toDoList = loadArray("toDoFile.txt");
+            }
+    
+            if (completedFile.length() != 0) {
+                completedList = loadArray("completedFile.txt");
+            }
+            
+            Menu();
+    
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(toDoFile))) { // Writing into a to-do tasks file
+                for (String[] row : toDoList) {
+                    for (String item : row) {
+                        writer.write(item + " ");
+                    }
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error Detected: ");
+                e.printStackTrace();
+            }
+    
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(completedFile))) { // Writing into a completed tasks file
+                for (String[] row : completedList) {
+                    for (String item : row) {
+                        writer.write(item + " ");
+                    }
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error Detected: ");
+                e.printStackTrace();
+            }
+        }
+    }
